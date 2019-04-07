@@ -101,7 +101,7 @@ const Order = new GraphQLObjectType({
         resolve (parent, args) {
           const id= parent.id;
           const response = 
-          fetch(`http://localhost:8080/sportstore/orderdetail/${id}`).then( (kq) => {
+          fetch(`http://localhost:8081/sportstore/orderdetail/${id}`).then( (kq) => {
             //console.log(kq);
             return kq.json();
               });
@@ -182,8 +182,12 @@ const OrderDetail = new GraphQLObjectType({
       },
       product: {
           type: Product,
-          resolve (orderdetail) {
-            return orderdetail.getProduct();
+          resolve (parent, args) {
+            return Db.models.products.findOne({
+              where: {
+                id: parent.productID
+              }
+            });
           }
       }
     };

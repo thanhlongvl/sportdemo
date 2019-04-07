@@ -50,7 +50,6 @@ class OrderList extends Component {
                 </div>
                 <br />
                 <br />
-                <br />
             </div>
         );
     }

@@ -8,7 +8,8 @@ class OrderDetailPage extends Component {
     super(props);
     this.state = {
       orderdetail: [],
-      order: ""
+      order: "",
+      customer: "",
     };
   }
   componentDidMount() {
@@ -34,26 +35,31 @@ class OrderDetailPage extends Component {
               quatity
               price
               amount
+              product{
+                id
+                name
+              }
             }
           }
         }`,
-        variables: { id: 1 }
+        variables: { id: parseInt(this.props.match.params.order_id) }
       })
     }).then(res => res.json()).then(res => {
-      console.log(res.data.orderbyid.customer);
+      //console.log(res.data.orderbyid.customer);
       this.setState({
         orderdetail: res.data.orderbyid.orderdetails,
-        order: res.data.orderbyid.customer
+        order: res.data.orderbyid,
+        customer: res.data.orderbyid.customer
       });
     }).catch(err => {
       console.log(err);
     });
   }
   render() {
-    //console.log(this.props.match.params.order_id);
-    var { orderdetail, order } = this.state;
+    var { orderdetail, order, customer } = this.state;
+    //console.log(order.customer);
     return (
-      <ListOrderDetail order={order}>
+      <ListOrderDetail order={order} customer={customer}>
         {this.showOrderDetailItem(orderdetail)}
       </ListOrderDetail>
     );

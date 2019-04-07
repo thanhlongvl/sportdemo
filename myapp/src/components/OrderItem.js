@@ -18,10 +18,10 @@ class OrderItem extends Component {
                 </td>
                 <td className="w3-text-gray">
                     <Link to={`/orderitem/${orderitem.id}`}>
-                        <Button variant="outline-success" style={{marginRight: 10+'px'}}>Danger</Button>
+                        <Button variant="outline-success" style={{marginRight: 10+'px'}}>Detail</Button>
                     </Link>
                     <Link to={`/orderitem/${orderitem.id}`}>
-                        <Button variant="outline-danger">Danger</Button>
+                        <Button variant="outline-danger">Delete</Button>
                     </Link>
                 </td>
             </tr>
