@@ -4,6 +4,7 @@ import PageNotFound from './pages/NotFoundPage';
 import ProductsListPage from './pages/ProductListPage';
 import OrderListPage from './pages/OrderListPage';
 import OrderDetailPage from './pages/OrderDetailPage';
+import AddProductPage from './pages/AddProductPage';
 
 const routes = [
     {
@@ -20,6 +21,11 @@ const routes = [
         path : '/orders',
         exact : false,
         main: () => <OrderListPage />
+    },
+    {
+        path : '/product/add',
+        exact : false,
+        main: () => <AddProductPage />
     },
     {
         path : "/orderitem/:order_id",

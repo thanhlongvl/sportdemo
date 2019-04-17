@@ -18,7 +18,7 @@ class OrderList extends Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ query: '{ orders { id total status date customer{ name } } }' }),
         }).then(res => res.json()).then(res => {
-            console.log(res);
+            //console.log(res);
             this.setState({
                 orders: res.data.orders
             });
@@ -26,6 +26,49 @@ class OrderList extends Component {
             console.log(err);
         });
     }
+
+    onDelete = (orderid) => {
+        console.log(orderid);
+        var { orders } = this.state;
+        fetch('http://localhost:4000/graphql', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({ 
+                query: `mutation DeleteOrder($id: Int!){
+                    deleteOrder(id: $id){
+                      id
+                    }
+                  }`,
+                variables: { id: parseInt(orderid) }
+            })
+        }).then(res => {
+            console.log(res);    
+            if (res.status === 200) {
+                var index = this.findIndex(orders, orderid);
+                if (index !== -1) {
+                    orders.splice(index, 1);
+                    this.setState({
+                        orders: orders
+                    });
+                }
+            }
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+    
+    findIndex = (orders, id) => {
+        var result = -1;
+        orders.forEach((order, index) => {
+            if (order.id === id) {
+                result = index;
+            }
+        });
+        return result;
+    }
+
     render() {
         var { orders } = this.state;
         return (
@@ -62,6 +105,7 @@ class OrderList extends Component {
                         key={index}
                         orderitem={orderitem}
                         index={index}
+                        onDelete={this.onDelete}
                     />
                 );
             });
