@@ -9,13 +9,13 @@ class Sidebar extends Component {
         <div className="w3-col w3-card-8" style={{width: 22 +'%'}}>
             <ul className="w3-ul w3-blue side-menu">
                 <li className="w3-border-bottom w3-border-top"><a href={url} className="pd-name w3-xlarge w3-padding w3-hover-orange"><span className="fa fa-home"></span>&nbsp;<b>HOME</b></a></li>
-                <li className="w3-border-bottom"><a href={url} className="pd-name w3-padding w3-hover-orange"><b style={{marginLeft: 0 +'px'}}>SOCCER</b></a>
+                <li className="w3-border-bottom"><a href={url} className="pd-name w3-padding w3-hover-orange"><b style={{marginLeft: 0 +'px'}}>PRODUCT</b></a>
 					<ul className="w3-ul side-menu w3-light-blue">
 						<li className="w3-border-bottom"><a href={url} className="pd-name w3-padding w3-hover-orange">Shoes</a></li>
 						<li className="w3-border-bottom"><a href={url} className="pd-name w3-padding w3-hover-orange">Apparel</a></li>					
 					</ul>
                 </li>
-                <li className="w3-border-bottom"><a href={url} className="pd-name w3-padding w3-hover-orange"><b style={{marginLeft: 0 +'px'}}>BASKETBALL</b></a>
+                <li className="w3-border-bottom"><a href={url} className="pd-name w3-padding w3-hover-orange"><b style={{marginLeft: 0 +'px'}}>ORDER</b></a>
 					<ul className="w3-ul side-menu w3-light-blue">
                         <li className="w3-border-bottom "><a href={url} className="pd-name w3-padding w3-hover-orange w3-orange">Shoes</a></li>
                         <li className="w3-border-bottom "><a href={url} className="pd-name w3-padding w3-hover-orange">Apparel</a></li>

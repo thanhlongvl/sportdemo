@@ -5,7 +5,7 @@ const url="anh.html"
 
 class Product extends Component {
   render() {
-      console.log("my team");
+      //console.log("my team");
       var { product } = this.props;
     return (
         <div className="w3-third w3-container">

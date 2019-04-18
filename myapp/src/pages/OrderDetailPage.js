@@ -13,9 +13,6 @@ class OrderDetailPage extends Component {
     };
   }
   componentDidMount() {
-    //console.log(parseInt(this.props.match.params.order_id));
-    //order_id = parseInt(order_id); 
-    
     fetch('http://localhost:4000/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

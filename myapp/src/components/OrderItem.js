@@ -5,6 +5,11 @@ import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 
 class OrderItem extends Component {
+    onDelete = (id) => {
+        if(confirm('Do you want delete?')){ //eslint-disable-line
+            this.props.onDelete(id);
+        }
+    }
     render() {
         var { orderitem, index } = this.props;
         return (
@@ -20,11 +25,10 @@ class OrderItem extends Component {
                     <Link to={`/orderitem/${orderitem.id}`}>
                         <Button variant="outline-success" style={{marginRight: 10+'px'}}>Detail</Button>
                     </Link>
-                    <Link to={`/orderitem/${orderitem.id}`}>
-                        <Button variant="outline-danger">Delete</Button>
-                    </Link>
+                    <Button variant="outline-danger" onClick={ () => this.onDelete(orderitem.id) }>Delete</Button>
                 </td>
             </tr>
+            
         );
     }
     showstatus(status) {
