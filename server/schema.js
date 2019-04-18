@@ -101,7 +101,7 @@ const Order = new GraphQLObjectType({
         resolve (parent, args) {
           const id= parent.id;
           const response = 
-          fetch(`http://localhost:8081/sportstore/orderdetail/${id}`).then( (kq) => {
+          fetch(`http://localhost:8080/sportstore/orderdetail/${id}`).then( (kq) => {
             //console.log(kq);
             return kq.json();
               });
@@ -753,29 +753,36 @@ const Mutation = new GraphQLObjectType({
           }
         },
         resolve (source, args) {
-          return Db.models.customers.findById(args.customerID).then(customer => {
-            return customer.createOrder({
-              date: args.date,
-              total: args.total
-            }).then(order => {
-              fetch('http://localhost:8080/sportstore/orderdetail', {
-              method: "POST",
-              mode: "cors",
-              cache: "no-cache",
-              credentials: "same-origin",
-              headers: {
-                  "Content-Type": "application/json; charset=utf-8",
-              },
-              redirect: "follow",
-              referrer: "no-referrer",
-              body: JSON.stringify({
-                orderid: order.id,
-                products: args.products
-                })
+          return Db.transaction().then(t => {
+            return Db.models.customers.findById(args.customerID).then(customer => {
+              return customer.createOrder({
+                total: args.total
+              },{transaction: t}).then(order => {
+                fetch('http://localhost:8080/sportstore/orderdetail', {
+                method: "POST",
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                },
+                redirect: "follow",
+                referrer: "no-referrer",
+                body: JSON.stringify({
+                  orderid: order.id,
+                  products: args.products
+                  })
+                }).then((result) => {
+                  return t.commit();
+                }).catch(err => {
+                  console.log(err);
+                  return t.rollback();
               })
-              return order;
-            })
+                //return order;
+              })
+            });
           });
+          
         }
       },
       updateOrder: {
